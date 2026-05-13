@@ -1,0 +1,14 @@
+{
+  "$schema": "https://codesandbox.io/schemas/tasks.json",
+  "setupTasks": [],
+  "tasks": {
+    "start": {
+      "name": "static server",
+      "command": "npm start",
+      "runAtStart": true,
+      "preview": {
+        "port": 8080
+      }
+    }
+  }
+}
