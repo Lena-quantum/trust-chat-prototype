@@ -1,0 +1,970 @@
+/* ==========================================================================
+   Trust — final presentation deck
+   Editorial · paper-cream · serif · restrained color from the prototype palette
+   ========================================================================== */
+
+:root {
+  --paper:        #faf6f0;
+  --paper-2:      #f5efe6;
+  --rule:         #ece6dc;
+  --rule-strong:  #d8d0c2;
+  --ink:          #1c1917;
+  --ink-2:        #44403c;
+  --muted:        #78716c;
+  --muted-2:      #a8a29e;
+
+  /* trust palette — match prototype */
+  --cite:        #2563eb;
+  --cite-bg:     #eff6ff;
+  --confidence:  #92400e;
+  --confidence-bg: #fef3c7;
+  --confidence-bd: #fcd34d;
+  --opinion:     #4c1d95;
+  --opinion-bg:  #f5f3ff;
+  --opinion-bd:  #ddd6fe;
+  --nosrc:       #9a3412;
+  --nosrc-bg:    #fff7ed;
+  --nosrc-bd:    #fed7aa;
+
+  --serif: "Charter", "Iowan Old Style", Georgia, ui-serif, serif;
+  --sans:  "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  --mono:  "JetBrains Mono", "SF Mono", ui-monospace, monospace;
+
+  --r-sm: 4px;
+  --r-md: 8px;
+  --r-lg: 14px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; }
+
+body {
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--ink);
+  background: var(--paper);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: "kern" 1, "liga" 1;
+}
+
+button { font: inherit; color: inherit; cursor: pointer; background: transparent; border: 0; padding: 0; }
+a { color: inherit; }
+em { font-style: italic; }
+code {
+  font-family: var(--mono);
+  font-size: 0.88em;
+  background: var(--paper-2);
+  padding: 1px 6px;
+  border-radius: var(--r-sm);
+  color: var(--ink);
+}
+
+/* ==========================================================================
+   DECK NAV (bottom bar) — minimal
+   ========================================================================== */
+
+.deck-nav {
+  position: fixed;
+  bottom: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 8px 14px;
+  background: rgba(255, 253, 250, 0.86);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  z-index: 100;
+  box-shadow: 0 8px 24px rgba(40, 30, 15, 0.06);
+}
+.dn-btn {
+  width: 30px; height: 30px;
+  display: inline-flex;
+  align-items: center; justify-content: center;
+  border-radius: 50%;
+  color: var(--ink-2);
+  font-size: 18px;
+  transition: background 140ms ease;
+}
+.dn-btn:hover { background: var(--paper-2); color: var(--ink); }
+.dn-progress {
+  display: inline-block;
+  width: 160px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--rule);
+  overflow: hidden;
+}
+.dn-progress-fill {
+  display: block;
+  height: 100%;
+  background: var(--ink);
+  transition: width 320ms cubic-bezier(0.2, 0.7, 0.3, 1);
+  width: 8.33%;
+}
+.dn-counter {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+  min-width: 52px;
+  text-align: center;
+}
+.dn-counter .dn-sep { opacity: 0.4; }
+
+/* ==========================================================================
+   SLIDE BASE
+   ========================================================================== */
+
+.slide {
+  position: fixed;
+  inset: 0;
+  display: none;
+  padding: 60px 72px 90px;
+  background: var(--paper);
+}
+.slide.is-active {
+  display: block;
+  animation: fade-in 320ms cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.slide-inner {
+  max-width: 1140px;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.slide-foot {
+  position: absolute;
+  bottom: 22px;
+  left: 50%;
+  transform: translateX(390px);
+  font-family: var(--mono);
+  font-size: 10.5px;
+  color: var(--muted-2);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.slide-foot .sf-num { font-weight: 600; color: var(--muted); }
+
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 600;
+  margin-bottom: 18px;
+}
+
+.h2 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 46px;
+  line-height: 1.12;
+  letter-spacing: -0.018em;
+  margin: 0 0 32px;
+  color: var(--ink);
+  max-width: 920px;
+}
+.h2 em { font-style: italic; }
+
+.cols-2 {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 60px;
+  align-items: start;
+}
+.cols-2 p {
+  font-family: var(--serif);
+  font-size: 18px;
+  line-height: 1.6;
+  margin: 0 0 16px;
+  color: var(--ink-2);
+}
+.cols-2 p em { font-style: italic; color: var(--ink); }
+.cols-2 p strong { color: var(--ink); font-weight: 600; }
+
+.quiet { color: var(--muted); font-size: 16px !important; }
+
+/* ==========================================================================
+   SLIDE 1 — TITLE
+   ========================================================================== */
+
+.slide-title { padding-top: 36px; }
+
+.title-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 600;
+  margin-bottom: 50px;
+}
+.te-dot {
+  width: 8px; height: 8px;
+  background: var(--cite);
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.title-h1 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 96px;
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+  margin: 0 0 48px;
+  color: var(--ink);
+}
+.title-h1 em {
+  font-style: italic;
+  color: var(--cite);
+}
+
+.title-deck {
+  font-family: var(--serif);
+  font-size: 20px;
+  line-height: 1.55;
+  color: var(--ink-2);
+  max-width: 740px;
+  margin: 0 0 60px;
+}
+
+.title-meta {
+  display: flex;
+  gap: 48px;
+  flex-wrap: wrap;
+  padding-top: 28px;
+  border-top: 1px solid var(--rule);
+}
+.title-meta div { display: flex; flex-direction: column; gap: 4px; }
+.tm-l {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted-2);
+  font-weight: 600;
+}
+.title-meta div { font-size: 14px; color: var(--ink); }
+.title-meta a {
+  text-decoration: underline;
+  text-decoration-color: var(--rule-strong);
+  text-underline-offset: 3px;
+  color: var(--cite);
+}
+
+/* ==========================================================================
+   SLIDE 2 — PROBLEM
+   ========================================================================== */
+
+.problem-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding-top: 6px;
+}
+.ps-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 18px 22px;
+  background: var(--paper-2);
+  border: 1px solid var(--rule);
+  border-radius: var(--r-lg);
+}
+.ps-num {
+  font-family: var(--serif);
+  font-size: 42px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+.ps-txt {
+  font-size: 13.5px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+.ps-txt em { color: var(--ink-2); font-style: italic; }
+
+/* ==========================================================================
+   SLIDE 3 — THESIS
+   ========================================================================== */
+
+.slide-thesis { justify-content: center; align-items: center; text-align: center; }
+
+.big-quote {
+  margin: 0 0 48px;
+  padding: 0;
+  max-width: 900px;
+}
+.big-quote p {
+  font-family: var(--serif);
+  font-size: 50px;
+  line-height: 1.18;
+  letter-spacing: -0.018em;
+  margin: 0 0 16px;
+  color: var(--ink);
+  font-weight: 400;
+}
+.big-quote p:last-child { margin: 0; color: var(--ink); }
+.big-quote em {
+  font-style: italic;
+  color: var(--cite);
+}
+
+.thesis-foot {
+  font-family: var(--serif);
+  font-size: 18px;
+  line-height: 1.55;
+  color: var(--muted);
+  max-width: 720px;
+  margin: 0 auto;
+}
+.thesis-foot em { color: var(--ink-2); font-style: italic; }
+
+/* ==========================================================================
+   SLIDE 4 — FOUR DIMENSIONS
+   ========================================================================== */
+
+.dims {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+.dim {
+  padding: 28px 30px;
+  background: var(--paper-2);
+  border: 1px solid var(--rule);
+  border-radius: var(--r-lg);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.dim-num {
+  font-family: var(--serif);
+  font-size: 32px;
+  color: var(--cite);
+  font-weight: 500;
+  line-height: 1;
+}
+.dim-name {
+  font-family: var(--serif);
+  font-size: 26px;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  margin-bottom: 4px;
+}
+.dim p {
+  font-family: var(--serif);
+  font-size: 15.5px;
+  line-height: 1.5;
+  color: var(--muted);
+  margin: 0;
+}
+.dim p em { color: var(--ink-2); font-style: italic; }
+.dim-sample {
+  margin-top: auto;
+  padding: 12px 14px;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: var(--r-md);
+  font-family: var(--serif);
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--ink-2);
+}
+
+/* sample chip / pill / hedge / opinion mini-components */
+.cite-demo {
+  display: inline-block;
+  background: var(--cite-bg);
+  color: var(--cite);
+  font-family: var(--sans);
+  font-size: 10.5px;
+  font-weight: 600;
+  padding: 0 5px;
+  border-radius: 3px;
+  vertical-align: top;
+  margin: 0 1px;
+  position: relative;
+  top: -2px;
+}
+.conf-demo {
+  display: inline-block;
+  background: var(--confidence-bg);
+  color: var(--confidence);
+  border: 1px solid var(--confidence-bd);
+  font-family: var(--sans);
+  font-size: 10px;
+  font-weight: 600;
+  padding: 1px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-left: 6px;
+  vertical-align: 2px;
+}
+.hedge-demo {
+  border-bottom: 1px dotted var(--confidence);
+  color: inherit;
+}
+.opinion-demo {
+  display: inline-block;
+  background: var(--opinion-bg);
+  color: var(--opinion);
+  border: 1px solid var(--opinion-bd);
+  font-family: var(--sans);
+  font-size: 10.5px;
+  font-style: italic;
+  padding: 1px 8px;
+  border-radius: 4px;
+  margin-right: 6px;
+  vertical-align: 1px;
+  letter-spacing: 0.01em;
+}
+.fb-chip {
+  display: inline-flex;
+  width: 18px; height: 18px;
+  align-items: center; justify-content: center;
+  font-size: 11px;
+  border-radius: 4px;
+  border: 1px solid var(--rule-strong);
+  background: var(--paper);
+  color: var(--muted);
+  font-family: var(--sans);
+  vertical-align: 1px;
+  margin: 0 1px;
+}
+
+/* ==========================================================================
+   SLIDE 5 — COUNTER-PRINCIPLE
+   ========================================================================== */
+
+.ns-chip {
+  display: inline-block;
+  font-family: var(--sans);
+  font-size: 10.5px;
+  font-weight: 500;
+  color: var(--nosrc);
+  background: var(--nosrc-bg);
+  border: 1px dashed var(--nosrc-bd);
+  padding: 1px 8px;
+  border-radius: 999px;
+  text-transform: lowercase;
+  margin-right: 6px;
+  vertical-align: 1px;
+}
+
+.anti-trust-mockup {
+  background: var(--paper-2);
+  border: 1px solid var(--rule);
+  border-radius: var(--r-lg);
+  padding: 22px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.atm-header {
+  display: flex; justify-content: flex-end;
+  padding-bottom: 8px;
+  border-bottom: 1px dashed var(--rule);
+}
+.atm-domain {
+  font-family: var(--sans);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: var(--nosrc);
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--nosrc-bg);
+  border: 1px solid var(--nosrc-bd);
+}
+.atm-domain strong { font-weight: 700; }
+.atm-confession {
+  background: var(--confidence-bg);
+  border-left: 3px solid var(--confidence-bd);
+  border-radius: 0 var(--r-md) var(--r-md) 0;
+  padding: 14px 18px;
+  font-family: var(--serif);
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--confidence);
+}
+.atm-confession .atm-sub {
+  font-size: 13px;
+  color: var(--ink-2);
+  font-style: italic;
+  display: inline-block;
+  margin-top: 4px;
+}
+.atm-body {
+  font-family: var(--serif);
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--ink-2);
+}
+
+/* ==========================================================================
+   SLIDE 6 — PRE-MORTEM CORRIDOR
+   ========================================================================== */
+
+.corridor {
+  display: grid;
+  grid-template-columns: 1fr 220px 1fr;
+  gap: 8px;
+  margin-top: 12px;
+  position: relative;
+}
+.corridor::before {
+  content: "";
+  position: absolute;
+  left: 0; right: 0;
+  top: 14px;
+  height: 1px;
+  background: linear-gradient(to right, var(--rule), var(--rule-strong) 35%, var(--rule-strong) 65%, var(--rule));
+}
+.cor-side {
+  padding: 32px 24px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: relative;
+}
+.cor-label {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted-2);
+  font-weight: 600;
+}
+.cor-right .cor-label { text-align: right; }
+.cor-name {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+.cor-right .cor-name { text-align: right; }
+.cor-side p {
+  font-family: var(--serif);
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--muted);
+  margin: 0;
+}
+.cor-side p em { color: var(--ink-2); font-style: italic; }
+.cor-right p { text-align: right; }
+.cor-third {
+  margin-top: 14px;
+  padding: 12px 14px;
+  background: var(--paper-2);
+  border: 1px solid var(--rule);
+  border-radius: var(--r-md);
+  font-size: 13px;
+  color: var(--muted);
+  text-align: right;
+}
+.cor-third strong { color: var(--ink); }
+
+.cor-middle {
+  padding: 12px 18px 12px;
+  text-align: center;
+  position: relative;
+}
+.cor-middle::before {
+  content: "";
+  position: absolute;
+  top: 8px; bottom: 8px;
+  left: -1px; width: 1px;
+  background: var(--rule-strong);
+}
+.cor-middle::after {
+  content: "";
+  position: absolute;
+  top: 8px; bottom: 8px;
+  right: -1px; width: 1px;
+  background: var(--rule-strong);
+}
+.cor-target {
+  font-family: var(--serif);
+  font-size: 26px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--cite);
+  margin-top: 18px;
+}
+.cor-target-sub {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted-2);
+  margin-top: 6px;
+}
+
+.cor-cites {
+  margin-top: 32px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted-2);
+  text-align: center;
+  letter-spacing: 0.04em;
+}
+
+/* ==========================================================================
+   SLIDE 7 — LOOP
+   ========================================================================== */
+
+.loop {
+  display: flex;
+  align-items: stretch;
+  gap: 10px;
+  margin: 8px 0 32px;
+}
+.loop-step {
+  flex: 1;
+  padding: 22px 22px;
+  background: var(--paper-2);
+  border: 1px solid var(--rule);
+  border-radius: var(--r-lg);
+  display: flex; flex-direction: column; gap: 8px;
+}
+.ls-num {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  color: var(--muted);
+  letter-spacing: 0.12em;
+  font-weight: 600;
+}
+.ls-name {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.loop-step p {
+  font-family: var(--serif);
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--muted);
+  margin: 0;
+}
+.loop-step p em { color: var(--ink-2); font-style: italic; }
+.loop-arrow {
+  align-self: center;
+  font-size: 22px;
+  color: var(--muted-2);
+}
+.loop-rule {
+  font-family: var(--serif);
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--ink-2);
+  padding: 18px 22px;
+  background: var(--cite-bg);
+  border: 1px solid #dbeafe;
+  border-radius: var(--r-md);
+  margin: 0;
+}
+.loop-rule strong { color: var(--cite); font-weight: 600; }
+.loop-rule em { color: var(--ink); font-style: italic; }
+
+/* ==========================================================================
+   SLIDE 8 — STATES
+   ========================================================================== */
+
+.states-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.state {
+  padding: 22px 22px;
+  background: var(--paper-2);
+  border: 1px solid var(--rule);
+  border-radius: var(--r-lg);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.state-anti {
+  background: var(--confidence-bg);
+  border-color: var(--confidence-bd);
+}
+.st-num {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  color: var(--muted);
+  letter-spacing: 0.12em;
+  font-weight: 600;
+}
+.state-anti .st-num { color: var(--confidence); }
+.state h4 {
+  font-family: var(--serif);
+  font-size: 17.5px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  margin: 0;
+  color: var(--ink);
+}
+.state p {
+  font-family: var(--serif);
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0;
+  color: var(--muted);
+}
+.state p em { color: var(--ink-2); font-style: italic; }
+.state p code { font-size: 11.5px; }
+
+/* ==========================================================================
+   SLIDE 9 — FLOW
+   ========================================================================== */
+
+.flow-lede {
+  font-family: var(--serif);
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--muted);
+  font-style: italic;
+  margin: -10px 0 24px;
+  max-width: 720px;
+}
+
+.flow {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.flow-step {
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  gap: 18px;
+  padding: 18px 22px;
+  background: var(--paper-2);
+  border: 1px solid var(--rule);
+  border-radius: var(--r-md);
+  align-items: start;
+}
+.fs-num {
+  font-family: var(--mono);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--cite);
+  letter-spacing: 0.04em;
+  padding-top: 3px;
+}
+.flow-step strong {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 17.5px;
+  color: var(--ink);
+  display: block;
+  margin-bottom: 4px;
+  letter-spacing: -0.005em;
+}
+.flow-step p {
+  font-family: var(--serif);
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--ink-2);
+  margin: 0;
+}
+.flow-step .alt {
+  display: block;
+  margin-top: 8px;
+  font-size: 12.5px;
+  color: var(--muted);
+  font-style: italic;
+}
+
+/* ==========================================================================
+   SLIDE 10 — EVOLUTION
+   ========================================================================== */
+
+.evo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.evo-row {
+  display: grid;
+  grid-template-columns: 60px 1.2fr 2.4fr;
+  gap: 24px;
+  padding: 16px 20px;
+  background: var(--paper-2);
+  border: 1px solid var(--rule);
+  border-radius: var(--r-md);
+  align-items: start;
+}
+.evo-row.evo-key {
+  background: var(--cite-bg);
+  border-color: #dbeafe;
+  border-left: 3px solid var(--cite);
+}
+.ev-week {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  font-weight: 600;
+}
+.evo-key .ev-week { color: var(--cite); }
+.ev-what {
+  font-family: var(--serif);
+  font-size: 16.5px;
+  font-weight: 500;
+  color: var(--ink);
+  letter-spacing: -0.005em;
+}
+.ev-detail {
+  font-family: var(--serif);
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--ink-2);
+}
+.ev-detail em { font-style: italic; color: var(--ink); }
+
+/* ==========================================================================
+   SLIDE 11 — TRADEOFFS
+   ========================================================================== */
+
+.tradeoffs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+.to-card {
+  padding: 20px 22px;
+  background: var(--paper-2);
+  border: 1px solid var(--rule);
+  border-radius: var(--r-md);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.to-card:nth-child(4),
+.to-card:nth-child(5) { grid-column: span 1; }
+.to-num {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--cite);
+  letter-spacing: 0.04em;
+}
+.to-card h4 {
+  font-family: var(--serif);
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  margin: 0 0 4px;
+  color: var(--ink);
+}
+.to-card p {
+  font-family: var(--serif);
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--ink-2);
+  margin: 0;
+}
+.to-card p em { color: var(--ink-2); font-style: italic; }
+.to-stance {
+  display: block;
+  margin-top: 8px;
+  font-size: 12px;
+  color: var(--muted);
+  font-style: italic;
+}
+
+/* ==========================================================================
+   SLIDE 12 — CLOSE + DEMO
+   ========================================================================== */
+
+.slide-close {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.close-quote p {
+  font-size: 70px;
+  line-height: 1.05;
+  margin-bottom: 8px;
+}
+.close-quote p:last-child em { font-style: italic; color: var(--cite); }
+.close-body {
+  font-family: var(--serif);
+  font-size: 18.5px;
+  line-height: 1.6;
+  color: var(--muted);
+  max-width: 780px;
+  margin: 0 auto 48px;
+}
+.close-body em { color: var(--ink-2); font-style: italic; }
+
+.demo-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 20px;
+  padding: 22px 30px;
+  background: var(--ink);
+  color: var(--paper);
+  border-radius: var(--r-lg);
+  text-decoration: none;
+  transition: transform 200ms ease, box-shadow 240ms ease;
+  box-shadow: 0 12px 28px rgba(40, 30, 15, 0.18);
+}
+.demo-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 36px rgba(40, 30, 15, 0.24);
+}
+.dc-arrow {
+  font-size: 32px;
+  font-family: var(--serif);
+  font-weight: 300;
+}
+.demo-cta > div { text-align: left; display: flex; flex-direction: column; gap: 4px; }
+.dc-eyebrow {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(250, 246, 240, 0.5);
+}
+.dc-url {
+  font-family: var(--sans);
+  font-size: 16px;
+  letter-spacing: 0.01em;
+  font-weight: 500;
+}
+
+/* ==========================================================================
+   SCROLLBAR (subtle for any rare overflow)
+   ========================================================================== */
+
+.slide-inner::-webkit-scrollbar { width: 6px; }
+.slide-inner::-webkit-scrollbar-thumb { background: var(--rule-strong); border-radius: 3px; }
+.slide-inner::-webkit-scrollbar-track { background: transparent; }

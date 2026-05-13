@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Trust — final presentation · Lena Ehrenreich</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Charter&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- ============================ DECK NAV ============================ -->
+<nav class="deck-nav" id="deck-nav">
+  <button class="dn-btn" id="dn-prev" aria-label="previous slide">‹</button>
+  <span class="dn-progress"><span class="dn-progress-fill" id="dn-progress-fill"></span></span>
+  <span class="dn-counter"><span id="dn-current">1</span><span class="dn-sep"> / </span>12</span>
+  <button class="dn-btn" id="dn-next" aria-label="next slide">›</button>
+</nav>
+
+<!-- ============================ SLIDE 1 — TITLE ============================ -->
+<section class="slide is-active" data-slide="1">
+  <div class="slide-inner slide-title">
+    <div class="title-eyebrow">
+      <span class="te-dot"></span> Final presentation · UX for AI · UC Berkeley
+    </div>
+    <h1 class="title-h1">Trust as a<br /><em>design variable</em>.</h1>
+    <p class="title-deck">A concept prototype for human–AI interfaces, where the four dimensions of trust — sources, confidence, semantics, interactions — are treated as deliberate interface decisions, not emergent properties of good model output.</p>
+    <div class="title-meta">
+      <div><span class="tm-l">Author</span> Lena Ehrenreich</div>
+      <div><span class="tm-l">Course</span> UX for AI · Spring 2026</div>
+      <div><span class="tm-l">Live prototype</span> <a href="../" target="_blank">lena-quantum.github.io/trust-chat-prototype</a></div>
+    </div>
+  </div>
+  <div class="slide-foot"><span class="sf-num">01</span> · <span>title</span></div>
+</section>
+
+<!-- ============================ SLIDE 2 — PROBLEM ============================ -->
+<section class="slide" data-slide="2">
+  <div class="slide-inner">
+    <div class="eyebrow">problem</div>
+    <h2 class="h2">AI tools produce fluent output<br />with no surface to evaluate it.</h2>
+    <div class="cols-2">
+      <div>
+        <p>Most AI products today rely on a single trust signal: <em>fluent confidence.</em> The model speaks smoothly, the user accepts on instinct, and they walk away with <em>miscalibrated</em> trust — usually overtrust, occasionally undertrust, rarely accurate.</p>
+        <p>The workaround is a manual <em>verification loop</em>: re-running prompts across LLMs, Cmd-F into source documents, cross-checking citations. The loop often costs more time than the original task.</p>
+      </div>
+      <div class="problem-stats">
+        <div class="ps-row">
+          <span class="ps-num">73%</span>
+          <span class="ps-txt">of interviewees reported being "burned" by fake AI citations in technical work.</span>
+        </div>
+        <div class="ps-row">
+          <span class="ps-num">5+</span>
+          <span class="ps-txt">manual verification steps before trusting an AI output for important tasks.</span>
+        </div>
+        <div class="ps-row">
+          <span class="ps-num">∼0</span>
+          <span class="ps-txt">products today differentiate trust posture by the <em>stake</em> of the question.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-foot"><span class="sf-num">02</span> · <span>problem</span></div>
+</section>
+
+<!-- ============================ SLIDE 3 — THESIS ============================ -->
+<section class="slide" data-slide="3">
+  <div class="slide-inner slide-thesis">
+    <div class="eyebrow">thesis</div>
+    <blockquote class="big-quote">
+      <p>Trust is not an emergent property of good model output.</p>
+      <p>It is a <em>deliberate design output</em> — manufactured by the interface, on top of whatever the model produces.</p>
+    </blockquote>
+    <div class="thesis-foot">
+      Every trust signal in this prototype is an interface decision: which claims get cited, where confidence appears, when the model hedges, how the user steers. Trust becomes a <em>legible, manipulable surface</em>, not a feeling.
+    </div>
+  </div>
+  <div class="slide-foot"><span class="sf-num">03</span> · <span>thesis</span></div>
+</section>
+
+<!-- ============================ SLIDE 4 — FOUR DIMENSIONS ============================ -->
+<section class="slide" data-slide="4">
+  <div class="slide-inner">
+    <div class="eyebrow">framework</div>
+    <h2 class="h2">Four trust dimensions.</h2>
+    <div class="dims">
+      <div class="dim" data-dim="sources">
+        <div class="dim-num">①</div>
+        <div class="dim-name">Sources</div>
+        <p>Provenance as a first-class interface element. Where does the claim come from, and can the user inspect the origin without leaving flow?</p>
+        <div class="dim-sample">
+          See the model <sup class="cite-demo">¹</sup> for the underlying reference.
+        </div>
+      </div>
+      <div class="dim" data-dim="confidence">
+        <div class="dim-num">②</div>
+        <div class="dim-name">Confidence</div>
+        <p>Calibrated bands that expose the model's self-assessed certainty. Translate internal probability into a glanceable trust signal.</p>
+        <div class="dim-sample">
+          ~50–200 interactions per user. <span class="conf-demo">medium confidence</span>
+        </div>
+      </div>
+      <div class="dim" data-dim="semantics">
+        <div class="dim-num">③</div>
+        <div class="dim-name">Semantics</div>
+        <p>The <em>manner</em> of communication: hedge language, tone, modality. How something is said shapes whether it is believed — and whether that belief is warranted.</p>
+        <div class="dim-sample">
+          The model <span class="hedge-demo">typically outperforms</span> content-based methods.
+        </div>
+      </div>
+      <div class="dim" data-dim="interactions">
+        <div class="dim-num">④</div>
+        <div class="dim-name">Interactions</div>
+        <p>Affordances that let the user steer, correct, probe. Interaction transfers ownership — and therefore responsibility — from system to user.</p>
+        <div class="dim-sample">
+          <span class="opinion-demo">my read</span> ship a static co-visitation list. <span class="fb-chip">✓</span> <span class="fb-chip">↻</span> <span class="fb-chip">✕</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-foot"><span class="sf-num">04</span> · <span>framework</span></div>
+</section>
+
+<!-- ============================ SLIDE 5 — COUNTER-PRINCIPLE ============================ -->
+<section class="slide" data-slide="5">
+  <div class="slide-inner">
+    <div class="eyebrow">counter-principle</div>
+    <h2 class="h2">Visible absence of evidence<br />is itself a trust act.</h2>
+    <div class="cols-2">
+      <div>
+        <p>The most important demo in the prototype is the one where the model <em>doesn't</em> know. When the user asks a question grounded in private data the model can't evaluate, the response leads with an <em>empty-state confession</em> instead of papering over the gap.</p>
+        <p>A model that buries its uncertainty three paragraphs in is hiding it. Leading with the limitation is an honesty move.</p>
+        <p class="quiet">Anti-trust ≠ refusal. The model still ends with a small, caveat-scoped recommendation — and a checklist of what would unlock a sourced answer.</p>
+      </div>
+      <div class="anti-trust-mockup">
+        <div class="atm-header">
+          <span class="atm-domain">DOMAIN · <strong>OUTSIDE</strong></span>
+        </div>
+        <div class="atm-confession">
+          <strong>I am operating outside the domain<br />I have been calibrated on.</strong><br />
+          <span class="atm-sub">What I can say below uses what I can source. I will be explicit about the gap.</span>
+        </div>
+        <div class="atm-body">
+          <span class="ns-chip">no source</span>
+          The cost in engineering time depends on <span class="hedge-demo">your stack</span>, which I don't have access to.
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-foot"><span class="sf-num">05</span> · <span>counter-principle</span></div>
+</section>
+
+<!-- ============================ SLIDE 6 — PRE-MORTEM ============================ -->
+<section class="slide" data-slide="6">
+  <div class="slide-inner">
+    <div class="eyebrow">pre-mortem</div>
+    <h2 class="h2">Three failure modes.<br />The design lives in the narrow corridor between them.</h2>
+
+    <div class="corridor">
+      <div class="cor-side cor-left">
+        <div class="cor-label">← too little</div>
+        <div class="cor-name">Insufficient transparency</div>
+        <p>Smooth, confident UI hides uncertainty and trains users into miscalibrated <em>overtrust</em>. Most AI products live here.</p>
+      </div>
+      <div class="cor-middle">
+        <div class="cor-target">Calibrated witness</div>
+        <div class="cor-target-sub">where the design tries to sit</div>
+      </div>
+      <div class="cor-side cor-right">
+        <div class="cor-label">too much →</div>
+        <div class="cor-name">Transparency paradox</div>
+        <p>Making risks too visible reduces trust <em>below</em> a productive threshold. Users disengage rather than calibrate.</p>
+        <div class="cor-third">
+          <strong>+</strong> stacking too many trust artifacts collapses attention. <em>Cognitive overload</em> is the third failure mode.
+        </div>
+      </div>
+    </div>
+    <div class="cor-cites">Schilke et al. (2025) · Buçinca et al. (2021) · Steyvers et al. (2025)</div>
+  </div>
+  <div class="slide-foot"><span class="sf-num">06</span> · <span>pre-mortem</span></div>
+</section>
+
+<!-- ============================ SLIDE 7 — THE LOOP ============================ -->
+<section class="slide" data-slide="7">
+  <div class="slide-inner">
+    <div class="eyebrow">core interaction loop</div>
+    <h2 class="h2">The loop is never silent.</h2>
+
+    <div class="loop">
+      <div class="loop-step">
+        <div class="ls-num">01</div>
+        <div class="ls-name">Receive</div>
+        <p>Model responds. Trust signals embedded inline — chips, pills, hedges, opinion marks.</p>
+      </div>
+      <div class="loop-arrow">→</div>
+      <div class="loop-step">
+        <div class="ls-num">02</div>
+        <div class="ls-name">Evaluate</div>
+        <p>User reads. Hovers a chip for a popover; clicks for the side panel; sees confidence bands as they go.</p>
+      </div>
+      <div class="loop-arrow">→</div>
+      <div class="loop-step">
+        <div class="ls-num">03</div>
+        <div class="ls-name">Steer</div>
+        <p>Accept · refine · reject per claim. Adjust hedging, sources, audience via the steering bar.</p>
+      </div>
+      <div class="loop-arrow">→</div>
+      <div class="loop-step">
+        <div class="ls-num">04</div>
+        <div class="ls-name">Recalibrate</div>
+        <p>Feedback persists. Rejecting two claims auto-shifts hedging to <em>cautious</em>. The next response carries the change.</p>
+      </div>
+    </div>
+
+    <p class="loop-rule"><strong>Key rule:</strong> every user action produces a <em>visible acknowledgement</em>. Toasts fire on accept / refine / reject. <em>Silent absorption is a design bug.</em></p>
+  </div>
+  <div class="slide-foot"><span class="sf-num">07</span> · <span>loop</span></div>
+</section>
+
+<!-- ============================ SLIDE 8 — KEY STATES ============================ -->
+<section class="slide" data-slide="8">
+  <div class="slide-inner">
+    <div class="eyebrow">key states</div>
+    <h2 class="h2">Six states the system can occupy.</h2>
+    <div class="states-grid">
+      <div class="state">
+        <div class="st-num">1</div>
+        <h4>Evaluated domain · common case</h4>
+        <p>Header reads <code>domain · evaluated</code>. Citation chips on factual claims. Confidence pills appear <em>only</em> when confidence is not high — omission is intentional.</p>
+      </div>
+      <div class="state state-anti">
+        <div class="st-num">2</div>
+        <h4>Outside domain · counter-principle</h4>
+        <p>Header flips to <code>outside</code>. Amber tint. Confession opens the response. <code class="ns-chip">no source</code> chips on inferences. A "what I'd need" checklist that the user can act on.</p>
+      </div>
+      <div class="state">
+        <div class="st-num">3</div>
+        <h4>Source side-panel</h4>
+        <p>Slides in from the right with the full source body and an <em>entailment statement</em> at the end: directly supports / partially / does not address.</p>
+      </div>
+      <div class="state">
+        <div class="st-num">4</div>
+        <h4>Agent trace</h4>
+        <p>Typed steps: <code>retrieve → read → domain-check → draft → refuse-to-extrapolate</code>. Closed by default — progressive disclosure.</p>
+      </div>
+      <div class="state">
+        <div class="st-num">5</div>
+        <h4>Cognitive forcing</h4>
+        <p>Toggle on → next send asks the user to commit a prediction before the answer appears. Buçinca et al. (2021) — strongest evidence-backed move.</p>
+      </div>
+      <div class="state">
+        <div class="st-num">6</div>
+        <h4>Rejection cascade</h4>
+        <p>After two rejections the steering bar auto-shifts hedging from <em>measured</em> → <em>cautious</em>. A toast acknowledges the pattern. The user can override.</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide-foot"><span class="sf-num">08</span> · <span>states</span></div>
+</section>
+
+<!-- ============================ SLIDE 9 — ANNOTATED FLOW ============================ -->
+<section class="slide" data-slide="9">
+  <div class="slide-inner">
+    <div class="eyebrow">annotated flow</div>
+    <h2 class="h2">How the outside-domain response was designed.</h2>
+    <p class="flow-lede">The single most important exchange in the prototype. Every micro-decision below was made deliberately.</p>
+
+    <div class="flow">
+      <div class="flow-step">
+        <span class="fs-num">A</span>
+        <div>
+          <strong>Competence flip lives in the header, not the message.</strong>
+          <p>Outside-domain is a <em>session-level</em> state, not a per-message flag. A banner inside each message would imply the system is broken; a quiet header shift implies the system is self-aware. <span class="alt">Alt considered: inline warning banner — rejected, too alarming.</span></p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <span class="fs-num">B</span>
+        <div>
+          <strong>The confession comes first.</strong>
+          <p>Warm amber panel, left-border accent, structurally distinct from the body text. A model that buries uncertainty three paragraphs in is <em>hiding</em> it. Leading with the limitation is the honesty move.</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <span class="fs-num">C</span>
+        <div>
+          <strong>The response splits: <em>(a) what I can say · (b) what I would need.</em></strong>
+          <p>Part (b) is a checklist the user can act on — upload pills for missing data, yes/no toggles for context questions. The model doesn't refuse; it redirects into an <em>actionable handoff</em>.</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <span class="fs-num">D</span>
+        <div>
+          <strong>The single inference carries two signals at once.</strong>
+          <p>A rust <code class="ns-chip">no source</code> chip <em>and</em> hedge typography. Double uncertainty (no source + hedged register) deserves a double-marked surface. <span class="alt">Alt considered: one signal at a time — rejected, under-marks the claim.</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-foot"><span class="sf-num">09</span> · <span>flow</span></div>
+</section>
+
+<!-- ============================ SLIDE 10 — EVOLUTION ============================ -->
+<section class="slide" data-slide="10">
+  <div class="slide-inner">
+    <div class="eyebrow">evolution</div>
+    <h2 class="h2">How the design moved from week to week.</h2>
+
+    <div class="evo">
+      <div class="evo-row">
+        <span class="ev-week">W 12</span>
+        <span class="ev-what">First sketch · four dimensions framed</span>
+        <span class="ev-detail">Initial framework on paper: ① sources · ② confidence · ③ semantics · ④ interactions. Wireframe annotation by element.</span>
+      </div>
+      <div class="evo-row">
+        <span class="ev-week">W 13</span>
+        <span class="ev-what">First clickable build · common-case exchange</span>
+        <span class="ev-detail">Citation chips, popovers, confidence pills, hedge underlines, modality switcher, manipulable diagram. Counter-principle described as a rule but not yet built.</span>
+      </div>
+      <div class="evo-row evo-key">
+        <span class="ev-week">W 14</span>
+        <span class="ev-what">Outside-domain exchange added as equal-weight</span>
+        <span class="ev-detail">The biggest structural shift. Counter-principle becomes a <em>full second exchange</em>, not a footnote. The whole argument of the project depends on whether this exchange is honest.</span>
+      </div>
+      <div class="evo-row">
+        <span class="ev-week">W 14</span>
+        <span class="ev-what">Layout + legend refinements from peer review</span>
+        <span class="ev-detail">Alignment axis unified across header, conversation, steering bar. Steering-bar overflow fixed by a 2 × 2 grid. Legend modal added as an orientation tool, not a fallback.</span>
+      </div>
+      <div class="evo-row">
+        <span class="ev-week">W 15</span>
+        <span class="ev-what">Actionable handoff · upload + approve UX</span>
+        <span class="ev-detail">"What I'd need" checklist becomes interactive: real checkboxes, upload pills with file picker, yes/no toggles for context questions. The counter-principle becomes <em>doable</em>, not just declarative.</span>
+      </div>
+    </div>
+  </div>
+  <div class="slide-foot"><span class="sf-num">10</span> · <span>evolution</span></div>
+</section>
+
+<!-- ============================ SLIDE 11 — TRADEOFFS ============================ -->
+<section class="slide" data-slide="11">
+  <div class="slide-inner">
+    <div class="eyebrow">tradeoffs · open questions</div>
+    <h2 class="h2">What's still uncertain.</h2>
+
+    <div class="tradeoffs">
+      <div class="to-card">
+        <div class="to-num">A</div>
+        <h4>Popover vs. confidence pill overlap</h4>
+        <p>Two places communicate confidence — chip popover and inline pill. Not redundant (source-level vs. claim-level) but users have to learn both. Could be unified. <span class="to-stance">Holding for now; the orthogonality is meaningful.</span></p>
+      </div>
+      <div class="to-card">
+        <div class="to-num">B</div>
+        <h4>How many signals before overload?</h4>
+        <p>Eight visible trust marks. Per-genre allocation rule (only signal when the genre warrants it) is the guard — but the threshold for this UI density is empirically unknown. <span class="to-stance">Needs A/B testing with real readers.</span></p>
+      </div>
+      <div class="to-card">
+        <div class="to-num">C</div>
+        <h4>Is the confession panel honest or alarmist?</h4>
+        <p>In peer review: three said appropriately calibrated; one said excessive. Three candidates to test: (a) confession leads — current; (b) confession as a footer label; (c) competence indicator only, no panel.</p>
+      </div>
+      <div class="to-card">
+        <div class="to-num">D</div>
+        <h4>Rejection cascade — reassuring or surveillance?</h4>
+        <p>The auto-shift to <em>cautious</em> after two rejections demonstrates listening. Some readers find it responsive; others find the model tracking their behavior unsettling. <span class="to-stance">Toast copy is the lever.</span></p>
+      </div>
+      <div class="to-card">
+        <div class="to-num">E</div>
+        <h4>Will anyone keep cognitive forcing on?</h4>
+        <p>Strongest empirical evidence in the system (Buçinca 2021). Most disruptive to flow. Open question: does it get toggled off after one encounter and never touched again? <span class="to-stance">If yes, the move isn't worth the screen real estate.</span></p>
+      </div>
+    </div>
+  </div>
+  <div class="slide-foot"><span class="sf-num">11</span> · <span>tradeoffs</span></div>
+</section>
+
+<!-- ============================ SLIDE 12 — MENTAL MODEL + DEMO ============================ -->
+<section class="slide" data-slide="12">
+  <div class="slide-inner slide-close">
+    <div class="eyebrow">mental model</div>
+    <blockquote class="big-quote close-quote">
+      <p>A <em>calibrated witness</em>,</p>
+      <p>not an oracle.</p>
+    </blockquote>
+    <p class="close-body">
+      The system tells you what it knows, how it knows it, and where its knowledge ends. It shows its sources so you can check its work. It distinguishes fact from inference from opinion, and marks each. It acknowledges pushback and adjusts. It is not trying to persuade. It is trying to give you <em>enough to decide.</em>
+    </p>
+
+    <a class="demo-cta" href="../" target="_blank">
+      <span class="dc-arrow">→</span>
+      <div>
+        <span class="dc-eyebrow">live demo</span>
+        <span class="dc-url">lena-quantum.github.io/trust-chat-prototype</span>
+      </div>
+    </a>
+  </div>
+  <div class="slide-foot"><span class="sf-num">12</span> · <span>close · demo</span></div>
+</section>
+
+<script src="app.js"></script>
+</body>
+</html>
